@@ -1,0 +1,36 @@
+services:
+
+    BenTools\EasyFormBundle\Form\DeletionFormBuilderFactory:
+        class: BenTools\EasyFormBundle\Form\DeletionFormBuilderFactory
+        arguments:
+            - '@property_accessor'
+            - '@doctrine'
+            - '@form.factory'
+
+
+    BenTools\EasyFormBundle\Form\ToggleFormBuilderFactory:
+        class: BenTools\EasyFormBundle\Form\ToggleFormBuilderFactory
+        arguments:
+            - '@property_accessor'
+            - '@doctrine'
+            - '@form.factory'
+
+    BenTools\EasyFormBundle\Twig\EasyFormExtension:
+        class: BenTools\EasyFormBundle\Twig\EasyFormExtension
+        arguments:
+            - '@BenTools\EasyFormBundle\Form\DeletionFormBuilderFactory'
+            - '@BenTools\EasyFormBundle\Form\ToggleFormBuilderFactory'
+        tags:
+            - { name: twig.extension }
+
+    BenTools\EasyFormBundle\Action\DeleteEntityAction:
+        class: BenTools\EasyFormBundle\Action\DeleteEntityAction
+        arguments:
+            - '@doctrine'
+            - '@BenTools\EasyFormBundle\Form\DeletionFormBuilderFactory'
+
+    BenTools\EasyFormBundle\Action\ToggleEntityAction:
+        class: BenTools\EasyFormBundle\Action\ToggleEntityAction
+        arguments:
+            - '@doctrine'
+            - '@BenTools\EasyFormBundle\Form\ToggleFormBuilderFactory'
